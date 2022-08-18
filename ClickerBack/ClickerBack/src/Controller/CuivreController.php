@@ -26,9 +26,9 @@ class CuivreController extends AbstractController
     }
 
     /**
-     * @Route("api/edit/cuivre/{id}", name="api_edit_cuivre_byclick_id", methods={"POST"})
+     * @Route("api/edit/cuivre/{id}", name="api_edit_cuivre_id", methods={"POST"})
      */
-    public function AddCuivreByClick(EntityManagerInterface $entityManager,Request $request, Cuivre $cuivre): Response
+    public function EditCuivre(EntityManagerInterface $entityManager,Request $request, Cuivre $cuivre): Response
     {
         $data = $request->getcontent();
         $dataDecoded = json_decode($data);
