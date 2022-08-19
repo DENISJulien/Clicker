@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CraftResourcesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CraftResourcesRepository::class)
@@ -16,6 +17,7 @@ class CraftResources
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"list_craft"})
      */
     private $id;
 
@@ -28,11 +30,13 @@ class CraftResources
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list_craft"})
      */
     private $countEngrenage;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"list_craft"})
      */
     private $statusEngrenage;
 
@@ -64,11 +68,13 @@ class CraftResources
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list_craft"})
      */
     private $countPlaqueDeCuivre;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"list_craft"})
      */
     private $statusPlaqueDeCuivre;
 
@@ -100,11 +106,13 @@ class CraftResources
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list_craft"})
      */
     private $countPackDeScience1;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list_craft"})
      */
     private $statusPackDeScience1;
 
