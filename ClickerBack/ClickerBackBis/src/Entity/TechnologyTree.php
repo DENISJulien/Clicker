@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CraftResourcesRepository;
+use App\Repository\TechnologyTreeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CraftResourcesRepository::class)
+ * @ORM\Entity(repositoryClass=TechnologyTreeRepository::class)
  */
-class CraftResources
+class TechnologyTree
 {
     /**
      * @ORM\Id
@@ -22,23 +22,22 @@ class CraftResources
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $craftResourcesName;
+    private $technologyTreeName;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $craftResourcesCount;
+    private $technologyTreePrice;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $craftResourcesStatus;
+    private $technologyTreeStatus;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="craftResources")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="technologyTree")
      */
     private $users;
-
 
     public function __construct()
     {
@@ -50,38 +49,38 @@ class CraftResources
         return $this->id;
     }
 
-    public function getCraftResourcesName(): ?string
+    public function getTechnologyTreeName(): ?string
     {
-        return $this->craftResourcesName;
+        return $this->technologyTreeName;
     }
 
-    public function setCraftResourcesName(string $craftResourcesName): self
+    public function setTechnologyTreeName(string $technologyTreeName): self
     {
-        $this->craftResourcesName = $craftResourcesName;
+        $this->technologyTreeName = $technologyTreeName;
 
         return $this;
     }
 
-    public function getCraftResourcesCount(): ?int
+    public function getTechnologyTreePrice(): ?int
     {
-        return $this->craftResourcesCount;
+        return $this->technologyTreePrice;
     }
 
-    public function setCraftResourcesCount(int $craftResourcesCount): self
+    public function setTechnologyTreePrice(int $technologyTreePrice): self
     {
-        $this->craftResourcesCount = $craftResourcesCount;
+        $this->technologyTreePrice = $technologyTreePrice;
 
         return $this;
     }
 
-    public function isCraftResourcesStatus(): ?bool
+    public function isTechnologyTreeStatus(): ?bool
     {
-        return $this->craftResourcesStatus;
+        return $this->technologyTreeStatus;
     }
 
-    public function setCraftResourcesStatus(bool $craftResourcesStatus): self
+    public function setTechnologyTreeStatus(bool $technologyTreeStatus): self
     {
-        $this->craftResourcesStatus = $craftResourcesStatus;
+        $this->technologyTreeStatus = $technologyTreeStatus;
 
         return $this;
     }
@@ -98,7 +97,7 @@ class CraftResources
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setCraftResources($this);
+            $user->setTechnologyTree($this);
         }
 
         return $this;
@@ -108,8 +107,8 @@ class CraftResources
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getCraftResources() === $this) {
-                $user->setCraftResources(null);
+            if ($user->getTechnologyTree() === $this) {
+                $user->setTechnologyTree(null);
             }
         }
 

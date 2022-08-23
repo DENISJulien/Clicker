@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BasicResourcesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class BasicResources
      * @ORM\Column(type="boolean")
      */
     private $basicResourcesStatus;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="basicResources")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,36 @@ class BasicResources
     public function setBasicResourcesStatus(bool $basicResourcesStatus): self
     {
         $this->basicResourcesStatus = $basicResourcesStatus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setBasicResources($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getBasicResources() === $this) {
+                $user->setBasicResources(null);
+            }
+        }
 
         return $this;
     }

@@ -41,6 +41,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $nameUser;
 
+    /******** RELATIONS ********/
+
+    /**
+     * @ORM\ManyToOne(targetEntity=BasicResources::class, inversedBy="users")
+     */
+    private $basicResources;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CraftResources::class, inversedBy="users")
+     */
+    private $craftResources;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TechnologyTree::class, inversedBy="users")
+     */
+    private $technologyTree;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,4 +158,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /******** RELATIONS ********/
+
+    public function getBasicResources(): ?BasicResources
+    {
+        return $this->basicResources;
+    }
+
+    public function setBasicResources(?BasicResources $basicResources): self
+    {
+        $this->basicResources = $basicResources;
+
+        return $this;
+    }
+
+    public function getCraftResources(): ?CraftResources
+    {
+        return $this->craftResources;
+    }
+
+    public function setCraftResources(?CraftResources $craftResources): self
+    {
+        $this->craftResources = $craftResources;
+
+        return $this;
+    }
+
+    public function getTechnologyTree(): ?TechnologyTree
+    {
+        return $this->technologyTree;
+    }
+
+    public function setTechnologyTree(?TechnologyTree $technologyTree): self
+    {
+        $this->technologyTree = $technologyTree;
+
+        return $this;
+    }
+
 }
