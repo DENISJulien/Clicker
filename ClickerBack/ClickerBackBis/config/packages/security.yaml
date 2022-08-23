@@ -11,7 +11,7 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
-    
+        # A METTRE AVANT MAIN, sinon pas prit en compte
         login:
             pattern: ^/api/login
             stateless: true
