@@ -34,8 +34,10 @@ class TechnologyTree
      */
     private $technologyTreeStatus;
 
+    /******** RELATION ********/
+
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="technologyTree")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="technologyTree")
      */
     private $users;
 
@@ -85,6 +87,8 @@ class TechnologyTree
         return $this;
     }
 
+    /******** RELATION ********/
+
     /**
      * @return Collection<int, User>
      */
@@ -97,7 +101,7 @@ class TechnologyTree
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setTechnologyTree($this);
+            $user->addTechnologyTree($this);
         }
 
         return $this;
@@ -106,10 +110,7 @@ class TechnologyTree
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getTechnologyTree() === $this) {
-                $user->setTechnologyTree(null);
-            }
+            $user->removeTechnologyTree($this);
         }
 
         return $this;

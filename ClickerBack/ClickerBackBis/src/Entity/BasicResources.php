@@ -44,8 +44,10 @@ class BasicResources
      */
     private $basicResourcesStatus;
 
+    /******** RELATION ********/
+
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="basicResources")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="basicResources")
      */
     private $users;
 
@@ -119,6 +121,8 @@ class BasicResources
         return $this;
     }
 
+    /******** RELATION ********/
+
     /**
      * @return Collection<int, User>
      */
@@ -131,7 +135,7 @@ class BasicResources
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setBasicResources($this);
+            $user->addBasicResource($this);
         }
 
         return $this;
@@ -140,12 +144,10 @@ class BasicResources
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getBasicResources() === $this) {
-                $user->setBasicResources(null);
-            }
+            $user->removeBasicResource($this);
         }
 
         return $this;
     }
+
 }

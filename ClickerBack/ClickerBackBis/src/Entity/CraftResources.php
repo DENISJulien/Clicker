@@ -34,11 +34,12 @@ class CraftResources
      */
     private $craftResourcesStatus;
 
+    /******** RELATION ********/
+
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="craftResources")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="craftResources")
      */
     private $users;
-
 
     public function __construct()
     {
@@ -86,6 +87,8 @@ class CraftResources
         return $this;
     }
 
+    /******** RELATION ********/
+
     /**
      * @return Collection<int, User>
      */
@@ -98,7 +101,7 @@ class CraftResources
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setCraftResources($this);
+            $user->addCraftResource($this);
         }
 
         return $this;
@@ -107,13 +110,11 @@ class CraftResources
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getCraftResources() === $this) {
-                $user->setCraftResources(null);
-            }
+            $user->removeCraftResource($this);
         }
 
         return $this;
     }
+
 
 }
