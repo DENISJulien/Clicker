@@ -46,3 +46,70 @@ nelmio_api_doc:
                                         properties:
                                             token:
                                                 type: string
+                                            
+        #* Entity User
+            #! Routes User GET  
+            #? Show One User By ID                                            
+            /api/user/{id}:
+                get:
+                    summary: Show One User By ID   
+                    description: Show One User By ID Methods
+                    tags:
+                        - Sound'Clock API User
+                    parameters:
+                      - in: path
+                        name: id
+                        schema:
+                            type: integer
+                        required: true
+
+                    responses:
+                        '200':
+                            description: Show One User By ID
+                            content:
+                                application/json:
+                                    schema: 
+                                        type: array
+                                        items: 
+                                            type: string
+
+            #? Show One User By ID                                            
+            /api/user/slug/{slug}:
+                get:
+                    summary: Show One User By Slug   
+                    description: Show One User By Slug Methods
+                    tags:
+                        - Sound'Clock API User
+
+                    responses:
+                        '200':
+                            description: Show One User By Slug
+                            content:
+                                application/json:
+                                    schema: 
+                                        type: array
+                                        items: 
+                                            type: string
+
+            #! Routes User POST  
+            #? Add User                                            
+            /api/user/create:
+                post:
+                    summary: Creat User
+                    description: Creat User Method 
+                    tags:
+                        - Sound'Clock API User
+                    requestBody:
+                        description: application/json
+                        required: true
+                        content: 
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        nameUser:
+                                            type: string
+                                        email:
+                                            type: string
+                                        password:
+                                            type: string
